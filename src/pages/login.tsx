@@ -3,7 +3,7 @@ import { useLogin } from "@pankod/refine-core";
 import { Container, Box } from "@pankod/refine-mui";
 
 import { CredentialResponse } from "../interfaces/google";
-
+import { yariga } from "assets";
 export const Login: React.FC = () => {
   const { mutate: login } = useLogin<CredentialResponse>();
 
@@ -18,7 +18,7 @@ export const Login: React.FC = () => {
       try {
         window.google.accounts.id.initialize({
           ux_mode: "popup",
-          client_id: "your-client-id",
+          client_id: "566233821049-8e6a1cg0oiu5e13kfe5dbcmuiovffdbo.apps.googleusercontent.com",
           callback: async (res: CredentialResponse) => {
             if (res.credential) {
               login(res);
@@ -42,8 +42,9 @@ export const Login: React.FC = () => {
     <Box
       component="div"
       sx={{
-        background: `radial-gradient(50% 50% at 50% 50%, #63386A 0%, #310438 100%)`,
-        backgroundSize: "cover",
+        // background: `radial-gradient(50% 50% at 50% 50%, #63386A 0%, #310438 100%)`,
+        // backgroundSize: "cover",
+        
       }}
     >
       <Container
