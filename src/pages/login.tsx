@@ -44,7 +44,7 @@ export const Login: React.FC = () => {
       sx={{
         // background: `radial-gradient(50% 50% at 50% 50%, #63386A 0%, #310438 100%)`,
         // backgroundSize: "cover",
-        
+        backgroundColor:"#FCFCFC"
       }}
     >
       <Container
