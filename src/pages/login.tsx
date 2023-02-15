@@ -66,7 +66,8 @@ export const Login: React.FC = () => {
           }}
         >
           <div>
-            <img src="./refine.svg" alt="Refine Logo" />
+            {/* <img src="./refine.svg" alt="Refine Logo" /> */}
+            <img src={yariga} alt="yariga Logo" />
           </div>
           <Box mt={4}>
             <GoogleButton />
