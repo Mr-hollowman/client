@@ -27,7 +27,8 @@ import { ColorModeContextProvider } from "contexts";
 import { Title, Sider, Layout, Header } from "components/layout";
 import { CredentialResponse } from "interfaces/google";
 import { parseJwt } from "utils/parse-jwt";
-import { Login,
+import {
+  Login,
   Home,
   Agents,
   MyProfile,
@@ -56,17 +57,34 @@ function App() {
   const { t, i18n } = useTranslation();
 
   const authProvider: AuthProvider = {
-    login: ({ credential }: CredentialResponse) => {
+    login: async ({ credential }: CredentialResponse) => {
       const profileObj = credential ? parseJwt(credential) : null;
 
+      // save user to mongoDB
       if (profileObj) {
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
-            ...profileObj,
-            avatar: profileObj.picture,
+        const response = await fetch("http://localhost:8080/api/v1/users", {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify({
+            name: profileObj.name,
+            email: profileObj.email,
+            avatar: profileObj.picture
           })
-        );
+        })
+        const data = await response.json();
+        if (response.status === 200) {
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              ...profileObj,
+              avatar: profileObj.picture,
+              userid: data._id
+            })
+          );
+        }
+        else{
+          return Promise.reject()
+        }
       }
 
       localStorage.setItem("token", `${credential}`);
@@ -129,29 +147,29 @@ function App() {
               show: PropertyDetails,
               create: CreateProperty,
               edit: EditProperty,
-              icon:<VillaOutlined />
-            }, 
+              icon: <VillaOutlined />
+            },
             {
               name: "agents",
               list: Agents,
               show: AgentProfile,
-              icon:<PeopleAltOutlined />
+              icon: <PeopleAltOutlined />
             },
             {
               name: "reviews",
               list: Home,
-              icon:<StarOutlineRounded/> 
+              icon: <StarOutlineRounded />
             },
             {
               name: "messages",
               list: Home,
-              icon:<ChatBubbleOutline/>
+              icon: <ChatBubbleOutline />
             },
             {
               name: "my-profile",
-              options:{label:"My Profile"},
+              options: { label: "My Profile" },
               list: MyProfile,
-              icon:<AccountCircleOutlined/>
+              icon: <AccountCircleOutlined />
             },
           ]}
           Title={Title}
