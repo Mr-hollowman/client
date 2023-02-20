@@ -105,7 +105,7 @@ const AllProperties = () => {
             title="Previous"
             handleClick={() => setCurrent(prev => prev - 1)}
             backgroundColor="#475BE8"
-            color="$FCFCFC"
+            color="#FCFCFC"
             disabled={!(current > 1)}
           />
           <Box display={{ xs: "hidden", sm: "flex" }} alignItems="center" gap={"5px"}>
@@ -116,7 +116,7 @@ const AllProperties = () => {
             title="Next"
             handleClick={() => setCurrent(prev => prev + 1)}
             backgroundColor="#475BE8"
-            color="$FCFCFC"
+            color="#FCFCFC"
             disabled={current === pageCount}
           />
           <Select
